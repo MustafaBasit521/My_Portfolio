@@ -1,354 +1,658 @@
-/* CSS Variables (Custom Properties) - Modern approach */
-:root {
-    --primary-color: #3d619c;
-    --secondary-color: #1e40af;
-    --text-dark: #1f2937;
-    --text-light: #6b7280;
-    --bg-light: #f9fafb;
-    --white: #ffffff;
-    --max-width: 1200px;
-    --spacing-sm: 1rem;
-    --spacing-md: 2rem;
-    --spacing-lg: 4rem;
-    --border-radius: 8px;
-    --transition: all 0.3s ease;
-}
+/* ============================================
+   1. CSS RESET
+   Browsers add default margins/paddings.
+   We strip them to start from zero.
+   ============================================ */
 
-/* CSS Reset - Consistent base across browsers */
+/* 
+   * = Universal Selector: targets EVERY element on the page
+   This is the "nuclear option" reset
+*/
 * {
+    
+    /* Remove default margin (browsers add ~8px to body) */
     margin: 0;
+    
+    /* Remove default padding */
     padding: 0;
+    
+    /* 
+       CRITICAL PROPERTY:
+       border-box means: width/height includes padding and border
+       Without this: if you set width: 200px and add padding: 20px,
+       the element becomes 240px wide (breaks layouts)
+    */
     box-sizing: border-box;
+    
 }
 
+
+/* ============================================
+   2. CSS VARIABLES (Custom Properties)
+   Define values once, reuse everywhere.
+   Change your brand color in ONE place.
+   ============================================ */
+
+/* 
+   :root = the highest level selector (represents <html>)
+   Variables defined here are available everywhere
+*/
+:root {
+    
+    /* Color palette */
+    --color-primary: #3b82f6;    /* Blue - your brand color */
+    --color-dark: #111827;       /* Near-black - headings */
+    --color-gray: #6b7280;       /* Gray - body text */
+    --color-light: #f3f4f6;      /* Light gray - backgrounds */
+    --color-white: #ffffff;      /* White */
+    
+    /* Spacing scale (1rem = 16px by default) */
+    --space-sm: 1rem;    /* 16px */
+    --space-md: 2rem;    /* 32px */
+    --space-lg: 4rem;    /* 64px */
+    
+    /* Layout values */
+    --max-width: 1200px; /* Content won't stretch wider than this */
+    --radius: 8px;       /* Rounded corners everywhere */
+    
+    /* Typography */
+    --font-main: 'Inter', sans-serif; /* Fallback: sans-serif */
+    
+}
+
+
+/* ============================================
+   3. BASE STYLES
+   Applied to the whole page
+   ============================================ */
+
+/* Target the <body> tag */
 body {
-    font-family: 'Inter', sans-serif;
+    
+    /* Apply our Google Font */
+    font-family: var(--font-main);
+    
+    /* Default text color for all content */
+    color: var(--color-dark);
+    
+    /* Line height: 1.6x the font size = readable spacing */
     line-height: 1.6;
-    color: var(--text-dark);
-    background-color: var(--white);
+    
 }
 
-/* Utility Classes */
+
+/* ============================================
+   4. UTILITY CLASSES
+   Reusable building blocks
+   ============================================ */
+
+/* 
+   .container: The wrapper that keeps content centered
+   and prevents it from stretching too wide
+*/
 .container {
+    
+    /* Don't grow wider than 1200px */
     max-width: var(--max-width);
+    
+    /* 
+       margin: 0 auto;
+       - top/bottom: 0
+       - left/right: auto (equal margins = centered)
+    */
     margin: 0 auto;
-    padding: 0 var(--spacing-sm);
+    
+    /* Padding on left and right so text doesn't touch screen edges */
+    padding: 0 var(--space-sm);
+    
 }
 
-/* Navigation - Flexbox Example */
-.navbar {
-    background-color: var(--white);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+
+/* Accent text color utility */
+.text-primary {
+    
+    /* Use our blue variable */
+    color: var(--color-primary);
+    
 }
 
-.navbar .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 70px;
-}
 
-.nav-brand {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary-color);
-}
+/* ============================================
+   5. BUTTON COMPONENT
+   Reusable button styles
+   ============================================ */
 
-.nav-menu {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-}
-
-.nav-link {
-    text-decoration: none;
-    color: var(--text-dark);
-    font-weight: 500;
-    transition: var(--transition);
-}
-
-.nav-link:hover {
-    color: var(--primary-color);
-}
-
-/* Hero Section */
-.hero {
-    background: linear-gradient(135deg, var(--bg-light) 0%, var(--white) 100%);
-    padding: var(--spacing-lg) 0;
-    min-height: 80vh;
-    display: flex;
-    align-items: center;
-}
-
-.hero-content {
-    max-width: 600px;
-}
-
-.hero-title {
-    font-size: 3rem;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: var(--spacing-sm);
-}
-
-.highlight {
-    color: var(--primary-color);
-}
-
-.hero-subtitle {
-    font-size: 1.25rem;
-    color: var(--text-light);
-    margin-bottom: var(--spacing-md);
-}
-
-.hero-buttons {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-/* Buttons */
+/* Base button class */
 .btn {
+    
+    /* 
+       inline-block: sits inline like text, 
+       but accepts padding/margin like a block
+    */
     display: inline-block;
+    
+    /* Vertical padding | Horizontal padding */
     padding: 0.75rem 1.5rem;
-    border-radius: var(--border-radius);
+    
+    /* Background color from variable */
+    background: var(--color-primary);
+    
+    /* Text color */
+    color: var(--color-white);
+    
+    /* Remove underline (since <a> tags have underline by default) */
     text-decoration: none;
+    
+    /* Rounded corners */
+    border-radius: var(--radius);
+    
+    /* Font weight: 600 = semi-bold */
     font-weight: 600;
-    transition: var(--transition);
-    border: 2px solid transparent;
+    
+    /* 
+       Transition: animate ALL properties over 0.3 seconds
+       This makes hover effects smooth, not instant
+    */
+    transition: all 0.3s ease;
+    
 }
 
-.btn-primary {
-    background-color: var(--primary-color);
-    color: var(--white);
-}
-
-.btn-primary:hover {
-    background-color: var(--secondary-color);
+/* 
+   :hover = when mouse is over the button
+   This creates the interactive feel
+*/
+.btn:hover {
+    
+    /* Darker blue */
+    background: #2563eb;
+    
+    /* Move up 2 pixels (lift effect) */
     transform: translateY(-2px);
+    
+    /* Add shadow below */
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    
 }
 
-.btn-secondary {
-    background-color: transparent;
-    color: var(--primary-color);
-    border-color: var(--primary-color);
+
+/* 
+   Button variant: Outline style
+   Uses TWO classes: class="btn btn-outline"
+   .btn-outline overrides some .btn properties
+*/
+.btn-outline {
+    
+    /* Transparent background */
+    background: transparent;
+    
+    /* Blue text instead of white */
+    color: var(--color-primary);
+    
+    /* 2px solid blue border */
+    border: 2px solid var(--color-primary);
+    
 }
 
-.btn-secondary:hover {
-    background-color: var(--primary-color);
-    color: var(--white);
+.btn-outline:hover {
+    
+    /* Fill with blue on hover */
+    background: var(--color-primary);
+    
+    /* Text becomes white */
+    color: var(--color-white);
+    
 }
 
-.btn-large {
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
+
+/* ============================================
+   6. NAVIGATION
+   Flexbox Pattern #1: Space Between
+   ============================================ */
+
+/* The navigation bar itself */
+.navbar {
+    
+    /* White background */
+    background: var(--color-white);
+    
+    /* Subtle shadow at bottom */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    
+    /* 
+       position: sticky;
+       When you scroll down, this sticks to the top
+    */
+    position: sticky;
+    
+    /* Stick to the very top of viewport */
+    top: 0;
+    
+    /* 
+       z-index: stacking order
+       100 = stays above everything else
+    */
+    z-index: 100;
+    
 }
 
-/* Section Styling */
-section {
-    padding: var(--spacing-lg) 0;
-}
-
-.section-title {
-    font-size: 2rem;
-    text-align: center;
-    margin-bottom: var(--spacing-md);
-    position: relative;
-}
-
-.section-title::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 4px;
-    background: var(--primary-color);
-    margin: 0.5rem auto;
-    border-radius: 2px;
-}
-
-/* About Section */
-.about {
-    background-color: var(--bg-light);
-}
-
-.about-grid {
+/* 
+   The .container INSIDE .navbar
+   This selector means: "Find .container that is a child of .navbar"
+*/
+.navbar .container {
+    
+    /* Activate Flexbox */
     display: flex;
-    gap: var(--spacing-md);
+    
+    /* Push logo left, menu right */
+    justify-content: space-between;
+    
+    /* Vertically center items */
     align-items: center;
+    
+    /* Fixed height for consistent navbar size */
+    height: 70px;
+    
 }
 
-.about-image {
-    flex: 1;
+/* Logo text styling */
+.logo {
+    
+    font-size: 1.5rem;  /* 24px */
+    font-weight: 700;   /* Bold */
+    color: var(--color-primary);
+    
 }
 
-.image-placeholder {
-    background-color: var(--white);
-    height: 300px;
-    border-radius: var(--border-radius);
+/* Navigation menu list */
+.nav-menu {
+    
+    /* Activate Flexbox (horizontal row of links) */
     display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-light);
-    border: 2px dashed var(--text-light);
-    font-size: 0.9rem;
-}
-
-.about-content {
-    flex: 1;
-}
-
-.about-content h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.about-content p {
-    color: var(--text-light);
-    margin-bottom: var(--spacing-sm);
-}
-
-.skills-list {
+    
+    /* Remove default bullet points from <ul> */
     list-style: none;
+    
+    /* 
+       gap: space BETWEEN flex children
+       Replaces old margin-right hacks
+    */
+    gap: 2rem;
+    
+}
+
+/* Individual navigation links */
+.nav-menu a {
+    
+    /* Remove underline */
+    text-decoration: none;
+    
+    /* Text color */
+    color: var(--color-dark);
+    
+    /* Medium weight */
+    font-weight: 500;
+    
+    /* Smooth color transition on hover */
+    transition: color 0.3s;
+    
+}
+
+/* Hover state for links */
+.nav-menu a:hover {
+    
+    /* Turn blue on hover */
+    color: var(--color-primary);
+    
+}
+
+
+/* ============================================
+   7. HERO SECTION
+   Flexbox Pattern #2: Perfect Centering
+   ============================================ */
+
+.hero {
+    
+    /* Gradient background: white to light gray */
+    background: linear-gradient(180deg, #ffffff 0%, var(--color-light) 100%);
+    
+    /* 
+       min-height: 80vh
+       vh = viewport height (screen height)
+       80vh = 80% of the screen
+    */
+    min-height: 80vh;
+    
+    /* Activate Flexbox */
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    
+    /* Vertical center (the magic line!) */
+    align-items: center;
+    
+    /* Center text horizontally */
+    text-align: center;
+    
 }
 
-.skills-list li {
-    background-color: var(--white);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
+/* Main headline */
+.hero h1 {
+    
+    font-size: 3.5rem;  /* 56px */
+    margin-bottom: var(--space-sm);
+    line-height: 1.2;   /* Tighter line height for big text */
+    
 }
 
-/* Projects Grid */
-.projects-grid {
+/* Subtitle under headline */
+.subtitle {
+    
+    font-size: 1.25rem; /* 20px */
+    color: var(--color-gray);
+    margin-bottom: var(--space-md);
+    
+}
+
+
+/* ============================================
+   8. SECTIONS & TITLES
+   ============================================ */
+
+/* All <section> tags */
+section {
+    
+    /* Vertical padding only (top and bottom) */
+    padding: var(--space-lg) 0;
+    
+}
+
+/* Reusable section heading */
+.section-title {
+    
+    font-size: 2rem;  /* 32px */
+    text-align: center;
+    margin-bottom: var(--space-md);
+    
+}
+.skills{
+    background: var(--color-light);
+}
+.skills-content{
     display: flex;
-    gap: var(--spacing-md);
-    justify-content: center;
-    flex-wrap: wrap;
+
+    align-items: center;
+    
+    gap: var(--space-md);
+    
+}
+.skills-text{
+    flex: 1;
 }
 
-.project-card {
-    background-color: var(--white);
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: var(--transition);
+.skills-text h3{
+    font-size: 1.5rem;
+}
+
+.skills-text p{
+    color: var(--color-gray);
+    margin-bottom: var(--space-md);
+}
+/* ============================================
+   9. ABOUT SECTION
+   Flexbox Pattern #3: Two-Column Layout
+   ============================================ */
+
+/* White background */
+.about {
+    background: var(--color-white);
+}
+
+/* 
+   Flexbox parent for About:
+   Holds .about-text (left) and .about-image (right)
+*/
+.about-content {
+    
+    display: flex;
+    
+    /* Vertical center both columns */
+    align-items: center;
+    
+    /* Space between the two columns */
+    gap: var(--space-md);
+    
+}
+
+/* Left column */
+.about-text {
+    
+    /* 
+       flex: 1;
+       Take up 1 portion of available space
+       Since sibling also has flex: 1, they split 50/50
+    */
+    flex: 1;
+    
+}
+
+.about-text h3 {
+    
+    font-size: 1.5rem;  /* 24px */
+    margin-bottom: var(--space-sm);
+    
+}
+
+.about-text p {
+    
+    color: var(--color-gray);
+    margin-bottom: var(--space-md);
+    
+}
+
+/* Right column */
+.about-image {
+    
+    flex: 1;  /* Equal width to .about-text */
+    
+}
+
+/* The actual image */
+.profile-img {
+    
+    /* Fill the parent container width */
     width: 100%;
-    max-width: 350px;
+    
+    /* Fixed height */
+    height: 350px;
+    
+    /* 
+       object-fit: cover;
+       Crops image to fill the box without stretching
+       Options: cover (crop), contain (fit), fill (stretch)
+    */
+    object-fit: cover;
+    
+    /* Rounded corners */
+    border-radius: var(--radius);
+    
+    /* Subtle shadow */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    
 }
 
+
+/* ============================================
+   10. TAGS (Skill Labels)
+   ============================================ */
+
+/* Container for multiple tags */
+.tags {
+    
+    display: flex;
+    
+    /* Small gap between tags */
+    gap: 0.5rem;
+    
+    /* Allow wrapping to next line if needed */
+    flex-wrap: wrap;
+    
+}
+
+/* Individual tag pill */
+.tag {
+    
+    background: #dbeafe;  /* Light blue */
+    color: var(--color-primary);
+    
+    /* Padding: small vertical, medium horizontal */
+    padding: 0.25rem 0.75rem;
+    
+    /* Fully rounded = pill shape */
+    border-radius: 20px;
+    
+    font-size: 0.875rem;  /* 14px */
+    font-weight: 600;
+    
+}
+
+
+/* ============================================
+   11. PROJECTS GRID
+   Flexbox Pattern #4: Auto-Wrapping Cards
+   ============================================ */
+
+/* Light gray background to separate from About */
+.projects {
+    background: var(--color-light);
+}
+
+/* 
+   Flexbox parent for cards:
+   Cards will wrap to next line when they run out of room
+*/
+.projects-grid {
+    
+    display: flex;
+    
+    /* Allow wrapping (essential for responsiveness) */
+    flex-wrap: wrap;
+    
+    /* Space between cards */
+    gap: var(--space-md);
+    
+    /* Center the row if there's extra space */
+    justify-content: center;
+    
+}
+
+/* Individual project card */
+.project-card {
+    
+    /* 
+       flex: 1 1 300px;
+       - flex-grow: 1 (can grow to fill space)
+       - flex-shrink: 1 (can shrink if needed)
+       - flex-basis: 300px (start at 300px wide)
+    */
+    flex: 1 1 300px;
+    
+    /* Don't grow wider than this */
+    max-width: 380px;
+    
+    background: var(--color-white);
+    border-radius: var(--radius);
+    
+    /* 
+       overflow: hidden;
+       Hides anything that spills outside the border-radius
+       (Keeps the top image corners rounded)
+    */
+    overflow: hidden;
+    
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    
+    /* Smooth hover animation */
+    transition: transform 0.3s, box-shadow 0.3s;
+    
+}
+
+/* Card hover effect */
 .project-card:hover {
+    
+    /* Lift up 5 pixels */
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    
+    /* Larger shadow = "floating" effect */
+    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    
 }
 
-.project-image {
+/* Image area at top of card */
+.card-image {
+    
     height: 200px;
-    background-color: var(--bg-light);
+    background: #e5e7eb;  /* Gray placeholder */
+    
+    /* Flexbox to center text inside */
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-light);
+    
+    color: var(--color-gray);
+    font-weight: 600;
+    
 }
 
-.project-info {
-    padding: var(--spacing-md);
+/* Text area below image */
+.card-body {
+    
+    padding: var(--space-md);
+    
 }
 
-.project-info h3 {
+.card-body h3 {
     margin-bottom: 0.5rem;
 }
 
-.project-info p {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    margin-bottom: var(--spacing-sm);
+.card-body p {
+    color: var(--color-gray);
+    font-size: 0.95rem;
+    margin-bottom: var(--space-sm);
 }
 
-.project-tags {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
 
-.tag {
-    background-color: var(--bg-light);
-    color: var(--primary-color);
-    padding: 0.25rem 0.75rem;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: 600;
-}
+/* ============================================
+   12. CONTACT
+   ============================================ */
 
-/* Contact Section */
 .contact {
-    background-color: var(--bg-light);
+    
     text-align: center;
+    background: var(--color-white);
+    
 }
 
-.contact-text {
-    max-width: 600px;
-    margin: 0 auto var(--spacing-md);
-    color: var(--text-light);
-    font-size: 1.1rem;
+.contact p {
+    
+    color: var(--color-gray);
+    margin-bottom: var(--space-md);
+    
 }
 
-/* Footer */
+
+/* ============================================
+   13. FOOTER
+   ============================================ */
+
 .footer {
-    background-color: var(--text-dark);
-    color: var(--white);
+    
+    background: var(--color-dark);
+    color: var(--color-white);
     text-align: center;
-    padding: var(--spacing-md) 0;
-    font-size: 0.9rem;
-}
-
-/* Responsive Design Basics (Preview for Project 2) */
-@media (max-width: 768px) {
-    .hero-title {
-        font-size: 2rem;
-    }
     
-    .about-grid {
-        flex-direction: column;
-    }
+    /* Vertical padding */
+    padding: var(--space-md) 0;
     
-    .nav-menu {
-        gap: 1rem;
-        font-size: 0.9rem;
-    }
+    font-size: 0.9rem;  /* Slightly smaller text */
     
-    .projects-grid {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-.profile-img {
-    width: 100%;
-    height: 250px;           /* Smaller default for mobile */
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-/* Tablet and up (768px and larger) */
-@media (min-width: 768px) {
-    .profile-img {
-        height: 350px;       /* Taller on tablets */
-    }
-}
-
-/* Desktop and up (1024px and larger) */
-@media (min-width: 1024px) {
-    .profile-img {
-        height: 400px;       /* Even taller on desktop */
-        max-width: 500px;    /* But don't get too wide */
-    }
 }

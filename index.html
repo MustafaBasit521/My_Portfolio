@@ -1,123 +1,310 @@
+<!-- Tells the browser this is an HTML5 document -->
 <!DOCTYPE html>
+
+<!-- Root element. lang="en" tells screen readers this is English -->
 <html lang="en">
+
+<!-- Head = metadata (not visible on the page but critical) -->
 <head>
+    
+    <!-- Character encoding: supports all symbols, emojis, etc. -->
     <meta charset="UTF-8">
+    
+    <!-- 
+        VIEWPORT META (Super Important for Mobile):
+        - width=device-width: match the phone screen width
+        - initial-scale=1.0: don't zoom in/out by default
+        Without this, your site looks tiny on phones
+    -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name | Frontend Developer</title>
+    
+    <!-- Text that appears on the browser tab -->
+    <title>My Portfolio</title>
+    
+    <!-- 
+        Link to your CSS file:
+        - rel="stylesheet": tells browser this is a style file
+        - href="styles.css": the path to your CSS file
+    -->
     <link rel="stylesheet" href="styles.css">
-    <!-- Google Fonts for modern typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- 
+        Load Google Font "Inter" from the internet:
+        - weights 400 (normal), 600 (semi-bold), 700 (bold)
+        - display=swap: show fallback font first, then swap to Inter when loaded
+    -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- End of head section -->
 </head>
+
+<!-- Body = everything visible on the web page -->
 <body>
-    <!-- Navigation -->
+
+    <!-- 
+        NAVIGATION BAR
+        <nav> is semantic HTML: tells screen readers "this is navigation"
+        class="navbar": gives it a name so CSS can target it
+    -->
     <nav class="navbar">
+        
+        <!-- 
+            .container is a reusable wrapper:
+            - Centers content
+            - Sets max-width so text doesn't stretch too wide on big screens
+        -->
         <div class="container">
-            <div class="nav-brand">Muhammad Mustafa Basit.com</div>
+            
+            <!-- Logo / Brand name on the left side -->
+            <div class="logo">Muhammad Mustafa</div>
+            
+            <!-- 
+                <ul> = Unordered List (bullet points by default)
+                We remove bullets with CSS later
+                This holds our navigation links
+            -->
             <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+                
+                <!-- <li> = List Item: each individual link -->
+                <li>
+                    <!-- 
+                        <a> = Anchor (link)
+                        href="#home": clicking scrolls to the element with id="home"
+                    -->
+                    <a href="#home">Home</a>
+
+                </li>
+                
+                <li>
+                    <a href="#about">About</a>
+                </li>
+                <li>
+                    <a href="#skills">Skills</a>
+                </li>
+                <li>
+                    <a href="#projects">Projects</a>
+                </li>
+                
+                <li>
+                    <a href="#contact">Contact</a>
+                </li>
+                
+            <!-- End of navigation list -->
             </ul>
+            
+        <!-- End of container -->
         </div>
+        
+    <!-- End of navigation -->
     </nav>
-    <!-- Hero Section -->
+
+    <!-- 
+        HERO / HEADER SECTION
+        <header>: semantic tag for introductory content
+        id="home": target for the "Home" navigation link
+        class="hero": for styling (background, height, centering)
+    -->
     <header id="home" class="hero">
+        
         <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">Hello, I'm <span class="highlight">Muhammad Mustafa Basit</span></h1>
-                <p class="hero-subtitle">Aspiring Frontend Developer crafting beautiful web experiences and </p>
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">View My Work</a>
-                    <a href="#contact" class="btn btn-secondary">Contact Me</a>
-                </div>
-            </div>
+            
+            <!-- 
+                Main headline:
+                <h1> = most important heading (only ONE per page for SEO)
+                <span> = inline container to color just part of the text blue
+            -->
+            <h1>Hi, I'm <span class="text-primary">Mustafa</span></h1>
+            
+            <!-- Subtitle paragraph -->
+            <p class="subtitle">Frontend Developer in Training</p>
+            
+            <!-- 
+                Call-to-action button:
+                <a> tag styled as a button via CSS
+                href="#projects": scrolls to Projects section when clicked
+                class="btn": applies button styling
+            -->
+            <a href="#projects" class="btn">View My Work</a>
+            
         </div>
+        
     </header>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-grid">
-                <div class="about-image">
-    <img src="images/Myself.jpeg" alt="My photo" class="profile-img">
-</div>
+    <!-- 
+        MAIN CONTENT
+        <main>: semantic tag for the PRIMARY content of the page
+        Rule: Only ONE <main> per page
+        Screen readers jump here to skip navigation
+    -->
+    <main>
+        
+        <!-- 
+            ABOUT SECTION
+            <section>: groups related content thematically
+            id="about": target for the "About" navigation link
+        -->
+        <section id="about" class="about">
+            
+            <div class="container">
+                
+                <!-- Section heading -->
+                <h2 class="section-title">About Me</h2>
+                
+                <!-- 
+                    FLEXBOX PARENT for About section:
+                    This div will hold TWO children side-by-side:
+                    1. Text on the left
+                    2. Image on the right
+                    CSS will make it: display: flex
+                -->
                 <div class="about-content">
-                    <h3>I build things for the web</h3>
-                    <p>I'm currently learning modern web development through project-based learning. This portfolio itself is my first project using semantic HTML and modern CSS.</p>
-                    <ul class="skills-list">
-                        <li>HTML5 & Semantic Markup</li>
-                        <li>CSS3 & Flexbox</li>
-                        <li>JavaScript (Coming Soon)</li>
-                        <li>React (Coming Soon)</li>
-                    </ul>
+                    
+                    <!-- Left column: text content -->
+                    <div class="about-text">
+                        
+                        <!-- Sub-heading inside the section -->
+                        <h3>I build things for the web</h3>
+                        
+                        <!-- Paragraph describing yourself -->
+                        <p>I'm learning web development through real projects. This portfolio is proof that I understand HTML structure and CSS layout.</p>
+                        
+                        <!-- 
+                            Skill tags container:
+                            Will be styled with Flexbox so tags sit in a row
+                        -->
+                        <div class="tags">
+                            <span class="tag">HTML5</span>
+                            <span class="tag">CSS3</span>
+                            <span class="tag">Flexbox</span>
+                        </div>
+                        
+                    <!-- End of text column -->
+                    </div>
+                    
+                    <!-- Right column: image -->
+                    <div class="about-image">
+                        
+                        <!-- 
+                            <img> = Image tag
+                            src="images/Myself.jpeg": path to your image file
+                                - HTML is in: portfolio-project/
+                                - Image is in: portfolio-project/images/
+                                - So path is: images/Myself.jpeg
+                            alt="...": describes image for screen readers & SEO
+                            class="profile-img": for CSS styling (size, border-radius)
+                        -->
+                        <img src="images/Myself.jpeg" alt="Your Name portrait" class="profile-img">
+                        
+                    <!-- End of image column -->
+                    </div>
+                    
+                <!-- End of flexbox row -->
                 </div>
+                
             </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="projects-grid">
-                <!-- Project Card 1 -->
-                <article class="project-card">
-                    <div class="project-image">Project Screenshot</div>
-                    <div class="project-info">
-                        <h3>Portfolio Website</h3>
-                        <p>My first project using pure HTML and CSS. Features responsive design and modern layout.</p>
-                        <div class="project-tags">
-                            <span class="tag">HTML</span>
-                            <span class="tag">CSS</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Project Card 2 -->
-                <article class="project-card">
-                    <div class="project-image">Coming Soon</div>
-                    <div class="project-info">
-                        <h3>To-Do App</h3>
-                        <p>Interactive task manager with local storage. (JavaScript Project)</p>
-                        <div class="project-tags">
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">DOM</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Project Card 3 -->
-                <article class="project-card">
-                    <div class="project-image">Coming Soon</div>
-                    <div class="project-info">
-                        <h3>Dashboard UI</h3>
-                        <p>Data visualization dashboard with API integration. (React Project)</p>
-                        <div class="project-tags">
-                            <span class="tag">React</span>
-                            <span class="tag">API</span>
-                        </div>
-                    </div>
-                </article>
+            
+        </section>
+        <section id="skills" class="skills">
+            <div class="container">
+                
             </div>
-        </div>
-    </section>
+        </section>
+        <!-- 
+            PROJECTS SECTION
+            Another <section> because it's a different topic
+        -->
+        <section id="projects" class="projects">
+            
+            <div class="container">
+                
+                <h2 class="section-title">Featured Projects</h2>
+                
+                <!-- 
+                    FLEXBOX PARENT for project cards:
+                    display: flex + flex-wrap: wrap in CSS
+                    Will create a responsive grid of cards
+                -->
+                <div class="projects-grid">
+                    
+                    <!-- 
+                        PROJECT CARD 1
+                        <article>: semantic tag for self-contained content
+                        Each card makes sense on its own
+                    -->
+                    <article class="project-card">
+                        
+                        <!-- Placeholder for project screenshot -->
+                        <div class="card-image">Portfolio Site</div>
+                        
+                        <!-- Card text content -->
+                        <div class="card-body">
+                            <h3>Personal Portfolio</h3>
+                            <p>Built with semantic HTML and modern CSS layout techniques.</p>
+                            
+                            <!-- Tags showing technologies used -->
+                            <div class="tags">
+                                <span class="tag">HTML</span>
+                                <span class="tag">CSS</span>
+                            </div>
+                        </div>
+                        
+                    </article>
 
-    <!-- Contact Section -->
+                    <!-- PROJECT CARD 2 -->
+                    <article class="project-card">
+                        <div class="card-image">Coming Soon</div>
+                        <div class="card-body">
+                            <h3>To-Do App</h3>
+                            <p>Interactive task manager. JavaScript project coming up next.</p>
+                            <div class="tags">
+                                <span class="tag">JavaScript</span>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+                
+            </div>
+            
+        </section>
+
+    </main>
+
+    <!-- 
+        CONTACT SECTION
+        <section> (not <main>): contact is supplementary, not the primary page content
+    -->
     <section id="contact" class="contact">
+        
         <div class="container">
+            
             <h2 class="section-title">Get In Touch</h2>
-            <p class="contact-text">I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
-            <a href="mailto:your.email@example.com" class="btn btn-primary btn-large">Say Hello</a>
+            <p>I'm currently open to opportunities and collaborations.</p>
+            
+            <!-- 
+                Email link:
+                href="mailto:..." opens the user's email app
+                class="btn btn-outline": base button + outline variant
+            -->
+            <a href="mailto:your.email@example.com" class="btn btn-outline">Say Hello</a>
+            
         </div>
+        
     </section>
 
-    <!-- Footer -->
+    <!-- 
+        FOOTER
+        <footer>: semantic tag for closing content
+        Usually contains copyright, links, credits
+    -->
     <footer class="footer">
+        
         <div class="container">
+            <!-- &copy; = © copyright symbol -->
             <p>&copy; 2026 Your Name. Built with HTML & CSS.</p>
         </div>
+        
     </footer>
+
 </body>
 </html>
